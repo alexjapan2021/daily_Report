@@ -9,6 +9,8 @@
 <c:set var="commIdx" value="${ForwardConst.CMD_INDEX.getValue()}" />
 <c:set var="commShow" value="${ForwardConst.CMD_SHOW.getValue()}" />
 <c:set var="commNew" value="${ForwardConst.CMD_NEW.getValue()}" />
+<c:set var="flwUpdate" value="${ForwardConst.CMD_UPDATE.getValue()}" />
+<c:set var="flwDelete" value="${ForwardConst.CMD_DESTROY.getValue()}" />
 
 <c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
@@ -31,10 +33,10 @@
                         <td align = "center"><c:out value="${flw.name}" /></td>
                         <td align = "center">
                         <c:if test="${flw.id == null}">
-                        <a href="<c:url value='?action=${actEmp}&command=${commIdx}' />">フォローする</a>&nbsp;
+                        <a href="<c:url value='?action=${action}&command=${flwUpdate}&id=${flw.not_followed_employee_id}' />">フォローする</a>
                     	</c:if>
                     	<c:if test="${flw.id != null}">
-                        <a href="<c:url value='?action=${actEmp}&command=${commIdx}' />">フォローを外す</a>&nbsp;
+                        <a href="<c:url value='?action=${action}&command=${flwDelete}&id=${flw.id}' />">フォローを外す</a>
                     	</c:if>
                         </td>
                     </tr>

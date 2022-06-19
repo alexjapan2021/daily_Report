@@ -63,10 +63,10 @@
                     <th class="report_action">操作</th>
                 </tr>
                 <c:forEach var="latestReport" items="${follows_reports}" varStatus="status">
-                    <fmt:parseDate value="${report.reportDate}" pattern="yyyy-MM-dd" var="reportDay" type="date" />
+                <fmt:parseDate value="${latestReport.reportDate}" pattern="yyyy-MM-dd" var="reportDay" type="date" />
                     <tr class="row${status.count % 2}">
                         <td class="report_name"><c:out value="${latestReport.name}" /></td>
-                        <td></td>
+                        <td class="report_date"><fmt:formatDate value='${reportDay}' pattern='yyyy-MM-dd' /></td>
                         <td class="report_title">${latestReport.title}</td>
                         <td class="report_action"><a href="<c:url value='?action=${actRep}&command=${commShow}&id=${report.id}' />">詳細を見る</a></td>
                     </tr>

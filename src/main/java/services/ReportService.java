@@ -47,8 +47,10 @@ public class ReportService extends ServiceBase {
     		
     		rpt.setName((String)row[0]);
     		rpt.setId(row[1] == null ? null : (Integer)row[1]);
-//    		LocalDate localDate = Date.valueOf((String) row[2].toLocalDate()).toLocalDate();
-    		//rpt.setReportDate(localDate);
+    		String date = (String)row[2].toString();
+            //default, ISO_LOCAL_DATE
+            LocalDate localDate = LocalDate.parse(date);
+    		rpt.setReportDate(LocalDate.parse(date));
     		rpt.setTitle((String)row[3]);
     		report.add(rpt);
     	}

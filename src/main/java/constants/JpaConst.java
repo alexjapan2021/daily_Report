@@ -95,7 +95,7 @@ public interface JpaConst {
     String Q_FLW_GET_ALL_FLWEMP_VIEW_DEF = "SELECT f.id, e.id as not_followed_employee_id, e.name, f.followed_employee_id FROM employees e left join follows f on e.id = f.followed_employee_id AND f.employee_id = :" + JPQL_PARM_EMPLOYEE + "  WHERE e.delete_flag = 0";
     
     //指定した従業員がフォローしている従業員直近日報取得
-    String Q_FLW_GET_ALL_FLWEMP_REPORT_DEF = "SELECT e.name, r.id,  r.report_date, r.title FROM reports r left join follows f on f.followed_employee_id = r.employee_id and f.employee_id = :" + JPQL_PARM_EMPLOYEE + " inner join employees e on e.id = f.followed_employee_id  WHERE e.delete_flag = 0";
+    String Q_FLW_GET_ALL_FLWEMP_REPORT_DEF = "SELECT e.name, r.id, max(r.report_date), r.title FROM reports r left join follows f on f.followed_employee_id = r.employee_id and f.employee_id = :" + JPQL_PARM_EMPLOYEE + " inner join employees e on e.id = f.followed_employee_id  WHERE e.delete_flag = 0 group by e.id";
     
     //testクエリs
     String Q_FLW_TEST = ENTITY_FLW + ".test";

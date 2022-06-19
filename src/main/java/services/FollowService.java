@@ -49,22 +49,22 @@ public class FollowService extends ServiceBase {
     /*
      * ログインしている従業員のフォローしている従業員のidをリストで取得する
      * */
-//    public List<Follow> getFollowEmp2(EmployeeView employee){
-//        List<Follow> follows = em.createNamedQuery(JpaConst.Q_FLW_GET_ALL_FLWEMP_VIEW,Follow.class)
-//                .setParameter(JpaConst.JPQL_PARM_EMPLOYEE, EmployeeConverter.toModel(employee))
-//                .getResultList();
-//        return follows;
-//    }
+    public void delete(Follow fl) {
+        em.getTransaction().begin();
+        Follow f =em.find(Follow.class,fl.getId());  
+        em.remove(f); 
+        em.getTransaction().commit();
+    }
 
 
 
-    public void create(FollowView fl) {
+    public void create(Follow fl) {
         createInternal(fl);
     }
 
-    private void createInternal(FollowView fl) {
+    private void createInternal(Follow fl) {
         em.getTransaction().begin();
-        em.persist(FollowConverter.toModel(fl));
+        em.persist(fl);
         em.getTransaction().commit();
     }
 

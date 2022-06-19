@@ -22,15 +22,15 @@ import lombok.Setter;
  */
 
 @Table(name = JpaConst.TABLE_FLW)
-@NamedQueries({
-    @NamedQuery(
-            name = JpaConst.Q_FLW_GET_ALL_FLWEMP,
-            query = JpaConst.Q_FLW_GET_ALL_FLWEMP_DEF),
-    @NamedQuery(
-            name = JpaConst.Q_FLW_TEST,
-            query = JpaConst.Q_FLW_TEST_DEF
-            )
-})
+//@NamedQueries({
+//    @NamedQuery(
+//            name = JpaConst.Q_FLW_GET_ALL_FLWEMP,
+//            query = JpaConst.Q_FLW_GET_ALL_FLWEMP_DEF),
+//    @NamedQuery(
+//            name = JpaConst.Q_FLW_TEST,
+//            query = JpaConst.Q_FLW_TEST_DEF
+//            )
+//})
 @Getter //全てのクラスフィールドについてgetterを自動生成する(Lombok)
 @Setter //全てのクラスフィールドについてsetterを自動生成する(Lombok)
 @NoArgsConstructor //引数なしコンストラクタを自動生成する(Lombok)
@@ -48,17 +48,19 @@ public class Follow {
     /**
      * フォローをした従業員
      */
-    @ManyToOne
-    @JoinColumn(name = JpaConst.FLW_COL_EMP, nullable = false)
-    private Employee employee;
+//    @ManyToOne
+//    @JoinColumn(name = JpaConst.FLW_COL_EMP, nullable = false)
+    @Column(name = JpaConst.FLW_COL_EMP)
+    private Integer employee;
 
     /**
      * フォローされた従業員
      */
 
-    @ManyToOne
-    @JoinColumn(name = JpaConst.FLW_COL_FLWEMP, nullable = false)
-    private Employee followed_employee;
+//    @ManyToOne
+//    @JoinColumn(name = JpaConst.FLW_COL_FLWEMP, nullable = false)
+    @Column(name = JpaConst.FLW_COL_FLWEMP)
+    private Integer followed_employee;
 
 
 }

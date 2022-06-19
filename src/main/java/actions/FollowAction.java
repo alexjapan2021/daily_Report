@@ -1,15 +1,20 @@
 package actions;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.servlet.ServletException;
 
 import actions.views.EmployeeView;
 import actions.views.FollowView;
+import actions.views.ReportView;
 import constants.AttributeConst;
 import constants.ForwardConst;
 import constants.JpaConst;
+import constants.MessageConst;
+import models.Employee;
+import models.Follow;
 import services.FollowService;
 
 public class FollowAction extends ActionBase {
@@ -61,21 +66,25 @@ public class FollowAction extends ActionBase {
         forward(ForwardConst.FW_FLW_INDEX);
     }
 
-
-
-    public void follow_do() throws ServletException, IOException {
+    public void update() throws ServletException, IOException {
         //セッションスコープからログインしている社員オブジェクトを取得 model型のままでいい
         EmployeeView loginEmp = (EmployeeView)getSessionScope(AttributeConst.LOGIN_EMP);
-        //リクエストスコープからemployeeを取得
-        EmployeeView emp =  (EmployeeView)getSessionScope(AttributeConst.EMPLOYEE);
-
 
         //パラメータの値をもとにfollowsテーブルのインスタンスを作成する
-//        FollowView fl = new FollowView(null,loginEmp,emp);
-        FollowView fl = new FollowView();
+        Follow f = new Follow();
+        f.setEmployee(loginEmp.getId());
+        f.setFollowed_employee(Integer.parseInt(getRequestParam(AttributeConst.REP_ID)));
         //データの登録
-        service.create(fl);
-        removeSessionScope(AttributeConst.EMPLOYEE);
+        service.create(f);
+        redirect(ForwardConst.ACT_FLW,ForwardConst.CMD_INDEX);
+    }
+    
+    public void destroy() throws ServletException, IOException {
+        //パラメータの値をもとにfollowsテーブルのインスタンスを作成する
+        Follow f = new Follow();
+        f.setId(Integer.parseInt(getRequestParam(AttributeConst.REP_ID)));
+        //データの削除
+        service.delete(f);
         redirect(ForwardConst.ACT_FLW,ForwardConst.CMD_INDEX);
     }
 
